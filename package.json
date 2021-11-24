@@ -1,7 +1,7 @@
 {
   "name": "taro-plugin-image-compress",
-  "version": "1.0.1-alpha.10",
-  "description": "Taro应用初始化插件",
+  "version": "0.0.1",
+  "description": "Taro自动化图片压缩插件",
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run prod",
@@ -19,19 +19,21 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cathe-zhang/taro-plugins.git"
+    "url": "git+https://github.com/qq865738120/taro-plugin-image-compress.git"
   },
   "keywords": [
-    "Taro"
+    "Taro",
+    "image",
+    "imagemin",
+    "compress"
   ],
-  "author": "cellerchan",
+  "author": "code_xia",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cathe-zhang/taro-plugins/issues"
+    "url": "https://github.com/qq865738120/taro-plugin-image-compress/issues"
   },
-  "homepage": "https://github.com/cathe-zhang/taro-plugins#readme",
+  "homepage": "https://github.com/qq865738120/taro-plugin-image-compress#readme",
   "devDependencies": {
-    "@types/express": "^4.17.3",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.8",
     "chalk": "^4.0.0",
@@ -41,14 +43,15 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@tarojs/helper": "2.2.3",
-    "@tarojs/service": "2.2.3",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "get-port": "^5.1.1",
-    "glob": "^7.1.6",
-    "http-proxy-middleware": "^1.0.3",
-    "path-to-regexp": "^6.1.0",
-    "fs-path": "^0.0.25"
+    "@tarojs/helper": "^2.2.3",
+    "@tarojs/service": "^2.2.3",
+    "fs-path": "^0.0.25",
+    "imagemin": "^7.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^9.0.0",
+    "imagemin-webp": "^6.0.0",
+    "path-to-regexp": "^6.1.0"
   }
 }
