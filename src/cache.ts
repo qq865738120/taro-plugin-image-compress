@@ -1,5 +1,5 @@
 import * as fs from "fs";
-const cacheFilePath = "./.cache/taro-plugin-image-compress";
+const cacheFilePath = "./node_modules/.cache/taro-plugin-image-compress/cache";
 const fsPath = require("fs-path");
 
  export const getCache = () => {

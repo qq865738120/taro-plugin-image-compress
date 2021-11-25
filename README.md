@@ -8,10 +8,13 @@
 3. 无损压缩，不影响图片质量。
 
 ## 如何使用
+### 安装
 ```shell
 # 安装
 npm install taro-plugin-image-compress
 ```
+
+### 配置
 ```js
 // taro配置文件中增加该插件配置
 plugins: [
