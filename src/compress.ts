@@ -43,22 +43,28 @@ const compress = (ctx, dirPath?: string) => {
   imageFiles.map((path) => {
     getFileHash(path, (hash) => {
       if (isNeedCompress(path, hash, cache)) {
-        const destinationArr = path.split("/");
+        let _path = path
+        if (process.platform === 'win32') {
+          _path = _path.split('\\').join('/')
+        }
+        const destinationArr = _path.split("/");
         const fileName = destinationArr.pop() || "";
-        imagemin([path], {
+        imagemin([_path], {
           destination: destinationArr.join("/"),
           plugins: [pluginObj[fileName.split(".").pop() || "png"]],
         }).then((buffer) => {
+          count++
           if (!buffer || buffer.length === 0) {
-            count++
             return
           }
           const newHash = getBufferHash(buffer[0].data);
           // 替换新的hash值
           cache[buffer[0].sourcePath] = newHash;
-          count++;
           compressCount++;
           console.log(chalk.yellowBright("压缩 "), `✅${path}`);
+        }).catch(err => {
+          count++
+          console.error('压缩出错', err);
         });
       } else {
         count++;
@@ -67,7 +73,7 @@ const compress = (ctx, dirPath?: string) => {
   });
 
   const timerId = setInterval(() => {
-    if (count === imageFiles.length) {
+    if (count >= imageFiles.length - 1) {
       doCache(cache);
       clearInterval(timerId);
       console.log(
