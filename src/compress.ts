@@ -41,31 +41,33 @@ const compress = (ctx, dirPath?: string) => {
   ).files;
 
   imageFiles.map((path) => {
+    let _path = path;
+    if (process.platform === "win32") {
+      _path = _path.split("\\").join("/");
+    }
     getFileHash(path, (hash) => {
-      if (isNeedCompress(path, hash, cache)) {
-        let _path = path
-        if (process.platform === 'win32') {
-          _path = _path.split('\\').join('/')
-        }
+      if (isNeedCompress(_path, hash, cache)) {
         const destinationArr = _path.split("/");
         const fileName = destinationArr.pop() || "";
         imagemin([_path], {
           destination: destinationArr.join("/"),
           plugins: [pluginObj[fileName.split(".").pop() || "png"]],
-        }).then((buffer) => {
-          count++
-          if (!buffer || buffer.length === 0) {
-            return
-          }
-          const newHash = getBufferHash(buffer[0].data);
-          // 替换新的hash值
-          cache[buffer[0].sourcePath] = newHash;
-          compressCount++;
-          console.log(chalk.yellowBright("压缩 "), `✅${path}`);
-        }).catch(err => {
-          count++
-          console.error('压缩出错', err);
-        });
+        })
+          .then((buffer) => {
+            count++;
+            if (!buffer || buffer.length === 0) {
+              return;
+            }
+            const newHash = getBufferHash(buffer[0].data);
+            // 替换新的hash值
+            cache[buffer[0].sourcePath] = newHash;
+            compressCount++;
+            console.log(chalk.yellowBright("压缩 "), `✅${path}`);
+          })
+          .catch((err) => {
+            count++;
+            console.error("压缩出错", err);
+          });
       } else {
         count++;
       }
@@ -73,7 +75,7 @@ const compress = (ctx, dirPath?: string) => {
   });
 
   const timerId = setInterval(() => {
-    if (count >= imageFiles.length - 1) {
+    if (count === imageFiles.length) {
       doCache(cache);
       clearInterval(timerId);
       console.log(
