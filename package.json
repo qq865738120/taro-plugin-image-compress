@@ -1,6 +1,6 @@
 {
   "name": "taro-plugin-image-compress",
-  "version": "0.0.2",
+  "version": "0.0.3-alpha.0",
   "description": "Taro自动化图片压缩插件",
   "main": "index.js",
   "scripts": {

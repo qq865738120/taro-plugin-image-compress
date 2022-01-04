@@ -8,7 +8,4 @@ export default (ctx, options) => {
     console.log(chalk.greenBright("插件 "), "taro-plugin-image-compress");
     compress(ctx, dirPath)
   });
-  ctx.modifyBuildTempFileContent((arg) => {
-    console.log("----------------------------------------------------", arg);
-  });
 };
